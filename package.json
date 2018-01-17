@@ -2,12 +2,23 @@
   "name": "psychomotricien-tarare.fr",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": "Jonathan Masmejean",
+  "contributors": [
+    {
+      "name": "Jonathan Masmejean",
+      "email": "jonathan.masmejean@frigg-computing.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com:JoMas971/psychomotricien-tarare.fr.git"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "os": [
+    "darwin",
+    "linux",
+    "!win32"
+  ],
   "devDependencies": {
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -21,5 +32,8 @@
     "gulp-rev": "^8.1.1",
     "gulp-uglify": "^3.0.0",
     "gulp-usemin": "^0.3.28"
+  },
+  "engines": {
+    "npm": "^5.6.0"
   }
 }

@@ -13,6 +13,8 @@ var replace = require('gulp-replace');
 var rev = require('gulp-rev');
 var inject = require('gulp-inject');
 
+var distDir = './build_dist';
+
 var jsFiles = [
   './assets/lib/jquery/dist/jquery.js',
   './assets/lib/bootstrap/dist/js/bootstrap.js',
@@ -52,13 +54,13 @@ var imgFiles = [
 ];
 
 gulp.task('clean:dist', function(cb) {
-  del.sync('dist/**');
+  del.sync(distDir + '/**');
   cb();
 });
 
 gulp.task('copy:images', function() {
   return gulp.src(imgFiles, {cwd: './src/'})
-    .pipe(gulp.dest('./dist/images'));
+    .pipe(gulp.dest(distDir + '/images'));
 });
 
 gulp.task('copy:fonts', function() {
@@ -67,12 +69,12 @@ gulp.task('copy:fonts', function() {
     './assets/lib/bootstrap/dist/fonts/**',
     './assets/lib/components-font-awesome/fonts/**'
   ], {cwd: './src/'})
-    .pipe(gulp.dest('./dist/fonts'));
+    .pipe(gulp.dest(distDir + '/fonts'));
 });
 
 gulp.task('copy:dist', ['clean:dist', 'copy:images', 'copy:fonts'], function() {
   return gulp.src('./src/assets/**/*')
-    .pipe(gulp.dest('./dist/assets'));
+    .pipe(gulp.dest(distDir + '/assets'));
 });
 
 gulp.task('inject', ['copy:dist'], function() {
@@ -87,7 +89,7 @@ gulp.task('inject', ['copy:dist'], function() {
       relative: true
     }))
     .pipe(replace(/(assets\/images\/)/gmi, 'images/'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest(distDir));
 
   return tsk;
 });
@@ -104,15 +106,15 @@ gulp.task('usemin', ['inject'], function() {
     rev()
   ];
 
-  return gulp.src('./dist/index.html')
+  return gulp.src(distDir + '/index.html')
     .pipe(usemin({
       html: [minifyHtml({removeComments: true, collapseWhitespace: true})],
       css: cssArray,
       js: jsArray
-    })).pipe(gulp.dest('./dist'));
+    })).pipe(gulp.dest(distDir));
 });
 
 gulp.task('dist', ['usemin'], function(cb) {
-  del.sync('dist/assets/**');
+  del.sync(distDir + '/assets/**');
   cb();
 });
