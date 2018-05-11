@@ -72,7 +72,15 @@ gulp.task('copy:fonts', function() {
     .pipe(gulp.dest(distDir + '/fonts'));
 });
 
-gulp.task('copy:dist', ['clean:dist', 'copy:images', 'copy:fonts'], function() {
+gulp.task('copy:dist:robots', function() {
+  return gulp.src([
+    './src/robots.txt',
+    './src/sitemap.xml'
+  ])
+    .pipe(gulp.dest(distDir));
+});
+
+gulp.task('copy:dist', ['clean:dist', 'copy:images', 'copy:fonts', 'copy:dist:robots'], function() {
   return gulp.src('./src/assets/**/*')
     .pipe(gulp.dest(distDir + '/assets'));
 });
